@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>fe237f58-877f-40f0-8168-ff5641a1eeca</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BroCode.BlogTemplate.Application\BroCode.BlogTemplate.Application.csproj" />
+    <ProjectReference Include="..\BroCode.BlogTemplate.IoC\BroCode.BlogTemplate.IoC.csproj" />
+  </ItemGroup>
+
+
+</Project>
