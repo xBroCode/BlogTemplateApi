@@ -6,10 +6,10 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostsController : ControllerBase
+    public class ArticlesController : ControllerBase
     {
 
-        public PostsController()
+        public ArticlesController()
         {
         }
     }

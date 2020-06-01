@@ -9,7 +9,6 @@ namespace BroCode.BlogTemplate.IoC
 {
     public static class DependencyResolver
     {
-
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<DataContext>(options =>
