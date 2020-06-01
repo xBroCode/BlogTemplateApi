@@ -18,10 +18,12 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\BroCode.BlogTemplate.Application\BroCode.BlogTemplate.Application.csproj" />
+		<ProjectReference Include="..\BroCode.BlogTemplate.DTO\BroCode.BlogTemplate.DTO.csproj" />
 		<ProjectReference Include="..\BroCode.BlogTemplate.IoC\BroCode.BlogTemplate.IoC.csproj" />
 	</ItemGroup>
 
