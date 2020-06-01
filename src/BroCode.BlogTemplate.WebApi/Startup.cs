@@ -52,6 +52,8 @@ namespace BroCode.BlogTemplate.WebApi
 
             app.UseRouting();
 
+            app.UseCors(corsBuilder => corsBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
