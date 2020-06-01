@@ -1,6 +1,7 @@
 ﻿using BroCode.BlogTemplate.Application.Contracts;
 using BroCode.BlogTemplate.Application.Services;
 using BroCode.BlogTemplate.Persistence.Contexts;
+using BroCode.BlogTemplate.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace BroCode.BlogTemplate.IoC
             });
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
     }
 }

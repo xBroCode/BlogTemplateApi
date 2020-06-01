@@ -5,4 +5,9 @@
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BroCode.BlogTemplate.DTO\BroCode.BlogTemplate.DTO.csproj" />
+    <ProjectReference Include="..\BroCode.BlogTemplate.Persistence\BroCode.BlogTemplate.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
