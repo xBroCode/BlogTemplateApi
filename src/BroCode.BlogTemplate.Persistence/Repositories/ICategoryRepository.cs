@@ -6,5 +6,6 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
     public interface ICategoryRepository
     {
         IEnumerable<Category> GetAll();
+        Category GetById(int id);
     }
 }

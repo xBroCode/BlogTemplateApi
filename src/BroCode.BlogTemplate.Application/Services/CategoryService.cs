@@ -3,6 +3,7 @@ using BroCode.BlogTemplate.DTO;
 using BroCode.BlogTemplate.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BroCode.BlogTemplate.Application.Services
 {
@@ -17,16 +18,15 @@ namespace BroCode.BlogTemplate.Application.Services
         public IEnumerable<CategoryDTO> GetAll()
         {
             var categories = _categoryRepository.GetAll();
-            var categoriesDTO = new List<CategoryDTO>();
-            foreach (var category in categories)
-                categoriesDTO.Add(new CategoryDTO { Id = category.Id, Name = category.Name });
-
+            var categoriesDTO = categories.Select(category => new CategoryDTO(category.Id, category.Name));
+            
             return categoriesDTO;
         }
 
         public CategoryDTO GetById(int id)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.GetById(id);
+            return new CategoryDTO(category.Id, category.Name);
         }
 
         public void Create(CreateCategoryDTO categoryDTO)

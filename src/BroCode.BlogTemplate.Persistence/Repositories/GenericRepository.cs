@@ -21,5 +21,10 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
         {
             return this.dbSet.ToList();
         }
+
+        public TEntity GetById(int id)
+        {
+            return this.dbSet.Find(id);
+        }
     }
 }

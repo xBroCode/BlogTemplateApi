@@ -22,9 +22,8 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
             return Ok(categories);
         }
 
-
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         public ActionResult<CategoryDTO> GetById(int id)
         {
             var category = _categoryService.GetById(id);
