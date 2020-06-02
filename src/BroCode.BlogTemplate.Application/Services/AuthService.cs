@@ -28,7 +28,7 @@ namespace BroCode.BlogTemplate.Application.Services
             if (user.Password != encryptedPassword)
                 throw new ArgumentException();
 
-            var token = JwtHandler.GenerateToken(_tokenOptions.Value.SecretKey, user.Name, user.Id);
+            var token = JwtHandler.GenerateToken(_tokenOptions.Value.SecretKey, user.Name, user.Id, user.IsAdmin);
             return new LoginResultDTO(token);
         }
     }

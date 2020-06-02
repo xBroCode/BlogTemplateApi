@@ -8,7 +8,7 @@ namespace BroCode.BlogTemplate.Infrastructure.Security
 {
     public static class JwtHandler
     {
-        public static string GenerateToken(string securityKey, string userName, int userId)
+        public static string GenerateToken(string securityKey, string userName, int userId, bool isAdmin)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityKeyBytes = Encoding.ASCII.GetBytes(securityKey);
@@ -24,6 +24,10 @@ namespace BroCode.BlogTemplate.Infrastructure.Security
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(securityKeyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            if (isAdmin)
+                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
          
             return tokenHandler.WriteToken(token);
