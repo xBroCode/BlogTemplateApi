@@ -7,5 +7,6 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
     {
         IEnumerable<Category> GetAll();
         Category GetById(int id);
+        void Create(Category category);
     }
 }

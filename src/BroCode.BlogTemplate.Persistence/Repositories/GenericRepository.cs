@@ -16,15 +16,20 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
             this.dbSet = dataContext.Set<TEntity>();
         }
 
-
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return this.dbSet.ToList();
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return this.dbSet.Find(id);
+        }
+
+        public virtual void Create(TEntity entity)
+        {
+            this.dbSet.Add(entity);
+            this._context.SaveChanges();
         }
     }
 }

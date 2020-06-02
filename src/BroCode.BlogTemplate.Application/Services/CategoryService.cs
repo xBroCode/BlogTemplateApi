@@ -1,5 +1,6 @@
 ﻿using BroCode.BlogTemplate.Application.Contracts;
 using BroCode.BlogTemplate.DTO;
+using BroCode.BlogTemplate.Model;
 using BroCode.BlogTemplate.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace BroCode.BlogTemplate.Application.Services
 
         public void Create(CreateCategoryDTO categoryDTO)
         {
-            throw new NotImplementedException();
+            _categoryRepository.Create(new Category(categoryDTO.Name));
         }
 
         public void Update(CategoryDTO categoryDTO)

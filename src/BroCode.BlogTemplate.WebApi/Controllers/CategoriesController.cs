@@ -32,5 +32,14 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
             var category = _categoryService.GetById(id);
             return Ok(category);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(201)]
+        public IActionResult Create(CreateCategoryDTO categoryDTO)
+        {
+            _categoryService.Create(categoryDTO);
+            return StatusCode(201);
+        }
     }
 }
