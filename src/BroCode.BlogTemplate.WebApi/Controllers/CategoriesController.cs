@@ -1,5 +1,6 @@
 ﻿using BroCode.BlogTemplate.Application.Contracts;
 using BroCode.BlogTemplate.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<IEnumerable<CategoryDTO>> GetAll()
         {
             var categories = _categoryService.GetAll();
@@ -24,6 +26,7 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [AllowAnonymous]
         public ActionResult<CategoryDTO> GetById(int id)
         {
             var category = _categoryService.GetById(id);

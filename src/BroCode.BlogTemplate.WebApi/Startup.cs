@@ -1,11 +1,16 @@
+using BroCode.BlogTemplate.DTO;
 using BroCode.BlogTemplate.IoC;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Text;
 
 namespace BroCode.BlogTemplate.WebApi
 {
@@ -38,6 +43,12 @@ namespace BroCode.BlogTemplate.WebApi
                     }
                 });
             });
+
+            services.AddOptions<JwtConfig>().Bind(Configuration.GetSection("JwtConfig"));
+
+            var secretKey = Configuration.GetSection("JwtConfig:SecretKey").Value;
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            ConfigureTokenValidation(services, signingKey);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +65,7 @@ namespace BroCode.BlogTemplate.WebApi
 
             app.UseCors(corsBuilder => corsBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -66,6 +78,31 @@ namespace BroCode.BlogTemplate.WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlogTemplate");
             });
+        }
+
+        private void ConfigureTokenValidation(IServiceCollection services, SymmetricSecurityKey signingKey)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = true,
+                ValidIssuer = "BlogTemplate",
+                ValidateAudience = true,
+                ValidAudience = "*",
+                ValidateLifetime = true
+            };
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Audience = "*";
+                    options.Authority = "*";
+                    options.TokenValidationParameters = tokenValidationParameters;
+                    // options.RequireHttpsMetadata = false; -> Development config
+                    options.RequireHttpsMetadata = false;
+                    options.Configuration = new OpenIdConnectConfiguration();
+                });
         }
     }
 }
