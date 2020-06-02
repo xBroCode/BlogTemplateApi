@@ -122,6 +122,10 @@ namespace BroCode.BlogTemplate.Persistence.Migrations
                 name: "IX_Comments_ArticleId",
                 table: "Comments",
                 column: "ArticleId");
+
+            migrationBuilder.Sql(
+                "INSERT INTO Users (Name, Email, Password, IsAdmin) " +
+                "VALUES ('admin', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', true)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
