@@ -5,5 +5,6 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
     public interface IUserRepository
     {
         User? GetByEmail(string email);
+        void Create(User user);
     }
 }
