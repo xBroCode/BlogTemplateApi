@@ -3,6 +3,7 @@ using BroCode.BlogTemplate.DTO;
 using Kinvo.Utilities.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BroCode.BlogTemplate.WebApi.Controllers
 {
@@ -27,6 +28,22 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
             {
                 _userService.Create(createUserDTO);
                 return StatusCode(201);
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        public ActionResult<LoginResultDTO> Update(ChangeCredentialsDTO changeCredentialsDTO)
+        {
+            try
+            {
+                var loggedUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                _userService.Update(loggedUserId, changeCredentialsDTO);
+                return NoContent();
             }
             catch (BusinessException ex)
             {

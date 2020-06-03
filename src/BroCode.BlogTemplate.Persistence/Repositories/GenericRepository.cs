@@ -18,7 +18,7 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return this.dbSet.ToList();
+            return this.dbSet.AsNoTracking().ToList();
         }
 
         public virtual TEntity GetById(int id)
@@ -29,6 +29,14 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
         public virtual void Create(TEntity entity)
         {
             this.dbSet.Add(entity);
+            this._context.SaveChanges();
+        }
+
+        public virtual void Update(TEntity entityToUpdate)
+        {
+            this.dbSet.Attach(entityToUpdate);
+            this._context.Entry(entityToUpdate).State = EntityState.Modified;
+
             this._context.SaveChanges();
         }
     }
