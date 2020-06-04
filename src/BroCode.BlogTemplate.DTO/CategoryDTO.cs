@@ -13,6 +13,11 @@
             Name = name;
         }
 
+        public CategoryDTO()
+        {
+
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
     }

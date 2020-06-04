@@ -1,5 +1,6 @@
 ﻿using BroCode.BlogTemplate.Application.Contracts;
 using BroCode.BlogTemplate.DTO;
+using Kinvo.Utilities.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -36,10 +37,37 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ProducesResponseType(201)]
-        public IActionResult Create(CreateCategoryDTO categoryDTO)
+        [ProducesResponseType(400)]
+        public IActionResult Create(CreateCategoryDTO createCategoryDTO)
         {
-            _categoryService.Create(categoryDTO);
-            return StatusCode(201);
+            try
+            {
+                _categoryService.Create(createCategoryDTO);
+                return StatusCode(201);
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [HttpPut]
+        [Authorize(Roles = "admin")]
+        [Route("{id}")]
+        public IActionResult Update(int id, CategoryDTO categoryDTO)
+        {
+            try
+            {
+                categoryDTO.Id = id;
+                _categoryService.Update(categoryDTO);
+                return NoContent();
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
