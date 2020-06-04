@@ -7,7 +7,7 @@ namespace BroCode.BlogTemplate.Application.Contracts
     {
         void Create(CreateCategoryDTO categoryDTO);
         void Update(CategoryDTO categoryDTO);
-        bool Delete(int categoryId);
+        void Delete(int categoryId);
         IEnumerable<CategoryDTO> GetAll();
         CategoryDTO GetById(int id);
     }

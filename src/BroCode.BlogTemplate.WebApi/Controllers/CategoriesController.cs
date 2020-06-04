@@ -3,6 +3,7 @@ using BroCode.BlogTemplate.DTO;
 using Kinvo.Utilities.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace BroCode.BlogTemplate.WebApi.Controllers
@@ -67,6 +68,24 @@ namespace BroCode.BlogTemplate.WebApi.Controllers
             catch (BusinessException ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [HttpDelete]
+        [Authorize(Roles = "admin")]
+        [Route("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _categoryService.Delete(id);
+                return NoContent();
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
             }
         }
     }

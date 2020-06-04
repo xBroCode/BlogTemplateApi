@@ -11,5 +11,6 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
 
         void Create(Category category);
         void Update(Category category);
+        void Delete(Category category);
     }
 }

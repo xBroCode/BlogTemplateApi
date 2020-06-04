@@ -39,5 +39,20 @@ namespace BroCode.BlogTemplate.Persistence.Repositories
 
             this._context.SaveChanges();
         }
+
+        public virtual void Delete(object id)
+        {
+            TEntity entityToDelete = dbSet.Find(id);
+            Delete(entityToDelete);
+        }
+
+        public virtual void Delete(TEntity entityToDelete)
+        {
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
+                dbSet.Attach(entityToDelete);
+            
+            dbSet.Remove(entityToDelete);
+            this._context.SaveChanges();
+        }
     }
 }

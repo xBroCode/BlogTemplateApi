@@ -21,7 +21,7 @@ namespace BroCode.BlogTemplate.Application.Services
         {
             var categories = _categoryRepository.GetAll();
             var categoriesDTO = categories.Select(category => new CategoryDTO(category.Id, category.Name));
-            
+
             return categoriesDTO;
         }
 
@@ -52,9 +52,13 @@ namespace BroCode.BlogTemplate.Application.Services
             }
         }
 
-        public bool Delete(int categoryId)
+        public void Delete(int categoryId)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.GetById(categoryId);
+            if (category == null)
+                throw new ArgumentException();
+
+            _categoryRepository.Delete(category);
         }
 
         #region Private methods
