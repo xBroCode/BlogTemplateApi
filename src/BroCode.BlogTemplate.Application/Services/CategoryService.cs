@@ -34,6 +34,8 @@ namespace BroCode.BlogTemplate.Application.Services
         public void Create(CreateCategoryDTO categoryDTO)
         {
             this.ValidateCategoryName(categoryDTO.Name);
+            var existingCategory = _categoryRepository.FindByName(categoryDTO.Name);
+            Validate.IsTrue(existingCategory == null, "There is already a category with this name on the database");
             _categoryRepository.Create(new Category(categoryDTO.Name));
         }
 
